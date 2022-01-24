@@ -36,7 +36,7 @@ change_color() {
 }
 
 # Main
-if [[ -f "/usr/bin/wal" ]]; then
+if which wal &>/dev/null; then
 	if [[ "$1" ]]; then
 		pywal_get "$1"
 
