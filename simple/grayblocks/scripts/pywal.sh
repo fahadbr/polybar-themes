@@ -3,10 +3,11 @@
 # Color files
 PFILE="$HOME/.config/polybar/grayblocks/colors.ini"
 RFILE="$HOME/.config/polybar/grayblocks/scripts/rofi/colors.rasi"
+SFILE="$HOME/.config/polybar/colors.sh"
 
 # Get colors
 pywal_get() {
-	wal -i "$1" -q -t
+	wal -i "$1" -q -t -s
 }
 
 # Change colors
@@ -19,7 +20,17 @@ change_color() {
 	sed -i -e "s/primary = #.*/primary = $AC/g" $PFILE
 	sed -i -e 's/red = #.*/red = #B71C1C/g' $PFILE
 	sed -i -e 's/yellow = #.*/yellow = #F57F17/g' $PFILE
-	
+
+	[[ -f $SFILE ]] && rm $SFILE
+
+	cat > $SFILE <<- EOF
+export PCOL_BG=$BG
+export PCOL_BGA=$BGA
+export PCOL_FG=$FG
+export PCOL_FGA=$FGA
+export PCOL_AC=$AC
+EOF
+
 	# rofi
 	cat > $RFILE <<- EOF
 	/* colors */
